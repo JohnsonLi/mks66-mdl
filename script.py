@@ -28,7 +28,7 @@ def run(filename):
               255,
               255]]
 
-    color = [0, 0, 0]
+    color = [0, 255, 0]
     tmp = new_matrix()
     ident( tmp )
 
@@ -46,6 +46,15 @@ def run(filename):
                           'blue': [0.2, 0.5, 0.5]}]
     reflect = '.white'
 
-    print symbols
+    # print symbols
     for command in commands:
-        print command
+        print(command)
+        op = command['op']
+        if commands['args']:
+            pass
+            # if op =
+        else:
+            if op = 'push':
+                pass
+
+        # print command['op']
