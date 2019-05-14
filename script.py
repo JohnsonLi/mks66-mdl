@@ -50,11 +50,35 @@ def run(filename):
     for command in commands:
         print(command)
         op = command['op']
-        if commands['args']:
-            pass
-            # if op =
-        else:
-            if op = 'push':
+        args = command['args']
+        if args:
+            if op == 'move':
+                t = make_translate(float(args[0]), float(args[1]), float(args[2]))
+                matrix_mult( stack[-1], t )
+                stack[-1] = [ x[:] for x in t]
+            elif op == 'rotate':
+                theta = float(args[1]) * (math.pi / 180)
+                if args[0] == 'x':
+                    t = make_rotX(theta)
+                elif args[0] == 'y':
+                    t = make_rotY(theta)
+                else:
+                    t = make_rotZ(theta)
+                matrix_mult( stack[-1], t )
+                systems[-1] = [ x[:] for x in t]
+            elif op == 'scale':
+                t = make_scale(float(args[0]), float(args[1]), float(args[2]))
+                matrix_mult( stack[-1], t )
+                stack[-1] = [ x[:] for x in t]
+            elif op == 'box':
                 pass
+
+        else:
+            if op == 'push':
+                stack.append([x[:] for x in stack[-1]])
+            elif op == 'pop':
+                stack.pop()
+            elif op == 'display':
+                display(screen)
 
         # print command['op']
