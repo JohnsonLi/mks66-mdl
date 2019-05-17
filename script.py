@@ -87,19 +87,21 @@ def run(filename):
                       float(args[3]), float(args[4]), step_3d)
 
                 matrix_mult( stack[-1], polygons )
+                try:
+                    if(command['constants']):
+                        draw_polygons(polygons, screen, zbuffer, view, ambient, light, symbols, command['constants'])
+                    else:
+                        draw_polygons(polygons, screen, zbuffer, view, ambient, light, symbols, reflect)
+                except:
+                    continue
 
-                if(command['constants']):
-                    draw_polygons(polygons, screen, zbuffer, view, ambient, light, symbols, command['constants'])
-                else:
-                    draw_polygons(polygons, screen, zbuffer, view, ambient, light, symbols, reflect)
-               
                 polygons = []
             elif op == 'line':
                 add_edge( edges,
                       float(args[0]), float(args[1]), float(args[2]),
                       float(args[3]), float(args[4]), float(args[5]) )
-                matrix_mult( systems[-1], edges )
-                draw_lines(eges, screen, zbuffer, color)
+                matrix_mult( stack[-1], edges )
+                draw_lines(edges, screen, zbuffer, color)
                 edges = []
             elif command['op'] == 'save':
                 save_extension(screen, args[0] + ".png")
